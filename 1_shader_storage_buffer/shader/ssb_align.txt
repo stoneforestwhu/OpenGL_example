@@ -1,0 +1,22 @@
+#version 450 core
+
+layout(local_size_x = 4, local_size_y = 1, local_size_z = 1) in;
+
+layout(binding = 0, std140) buffer TestInput1 {
+  ivec4 g_input1[4];  //  0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+  layout(align = 128) ivec4 g_input2[4];  //  32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47
+  ivec4 g_input3[4];  //  48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63
+} input_buffer;
+layout(binding = 1, std140) buffer TestOutput1 {
+  ivec4 g_output1[4];
+  ivec4 g_output2[4];
+  ivec4 g_output3[4];
+} output_buffer;
+
+
+void main() {
+  const int id = int(gl_GlobalInvocationID.x);
+  output_buffer.g_output1[id] = input_buffer.g_input1[id];
+  output_buffer.g_output2[id] = input_buffer.g_input2[id];
+  output_buffer.g_output3[id] = input_buffer.g_input3[id];
+}
