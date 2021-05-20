@@ -1,0 +1,7 @@
+tcs:
+1、 patch的输入顶点的数量由glPatchPareameteri来决定，patch的输出顶点的数量由out layout来决定，输入输出的数量是可以不匹配的，
+如何调和这种不匹配？
+1、gl_invocationID 的范围是 [0, vertices)，也就是由patch的输出顶点决定，gl_invocationID指的也是输出顶点的index。
+2、gl_TessLevelInner 和 gl_TessLevelOuter 的值产生的作用？
+3、tcs的out和tes的in 声明没有变量名字。tcs的gl_out和tes的gl_in的关系？
+4、tes执行的次数？

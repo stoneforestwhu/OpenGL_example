@@ -1,0 +1,52 @@
+#version 410 core                                       
+void main(void){                                                       
+  const vec4 vertices[] = vec4[](vec4( 0.25, -0.25, 0.5, 1.0),  
+                                 vec4(-0.25, -0.25, 0.5, 1.0),  
+                                 vec4( 0.25,  0.25, 0.5, 1.0)); 
+  gl_Position = vertices[gl_VertexID];      // 根据当前处理的顶点 ID 为顶点位置赋值          
+}                                                       
+                               
+#version 410 core                                                       
+layout (vertices = 3) out;  // out-patch 的顶点个数，细分控制着色器将会被执行3次
+void main(void){                                                                       
+  // 仅在第一次执行（第一个顶点）时赋值（控制细分程度）
+  if (gl_InvocationID == 0){                                                                                   
+    gl_TessLevelInner[0] = 5.0; // 内部划分5个区域（新增4排顶点，见下图）
+    gl_TessLevelOuter[0] = 5.0; // 左边划分5段
+    gl_TessLevelOuter[1] = 5.0; // 右边划分5段
+    gl_TessLevelOuter[2] = 5.0; // 下边划分5段
+  }                                                                   
+  
+  // 通常直接将 in-patch顶点赋给 out-patch 顶点（也可以新建或移除）       
+  gl_out[gl_InvocationID].gl_Position = gl_in[gl_InvocationID].gl_Position;  
+}                                                                       
+                
+				
+#version 410 core                                                       
+layout (triangles, equal_spacing, cw) in;                               
+// 指定图元生成域、细分坐标空间、图元的面朝向
+void main(void){                                                                       
+  gl_Position = (gl_TessCoord.x * gl_in[0].gl_Position) + (gl_TessCoord.y * gl_in[1].gl_Position) +
+                (gl_TessCoord.z * gl_in[2].gl_Position);
+                 // gl_TessCoord：细分后的新增坐标（插值比例）            
+                 // 根据 input-patch 生成输出顶点的位置                     
+                 // 每个细分坐标都会让 TES 的执行一次
+}                                                                       
+                
+#version 410 core                                                 
+out vec4 color;                                                   
+void main(void)                                                   
+{                                                                 
+  color = vec4(0.0, 0.8, 1.0, 1.0);                             
+}     
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
