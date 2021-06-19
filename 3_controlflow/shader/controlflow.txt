@@ -1,0 +1,31 @@
+#version 450 core
+
+layout(local_size_x = 4, local_size_y = 1, local_size_z = 1) in;
+
+layout(binding = 0, std430) buffer TestInput1 {
+  int a[4];
+	int b[4];
+} input_buffer;
+
+layout(binding = 1, std430) buffer TestOutput1 {
+  uint c[4];
+} output_buffer;
+
+void main(){
+  uint gid = gl_GlobalInvocationID.x;
+	switch(input_buffer.a[gid]){
+		case 0:
+		case 1:
+			output_buffer.c[gid] |= 0x10;
+			if(input_buffer.b[gid] == 0)
+				return;
+			output_buffer.c[gid] |= 0x20;
+			break;
+		default:
+			output_buffer.c[gid] |= 0x100;
+			if(input_buffer.b[gid] == 0)
+				return;
+			output_buffer.c[gid] |= 0x200;
+			break;
+	}
+}
