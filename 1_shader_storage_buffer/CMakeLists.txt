@@ -15,3 +15,17 @@ add_custom_command(TARGET ssb_align
                    POST_BUILD 
                    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/lib/freeglutd.dll ${CMAKE_BINARY_DIR}/Debug/
                    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/lib/glew32d.dll ${CMAKE_BINARY_DIR}/Debug/)
+				   
+add_executable(ssb_struct src/ssb_struct.cpp)
+target_link_libraries(ssb_struct glew32d glew32sd)
+add_custom_command(TARGET ssb_struct 
+                   POST_BUILD 
+                   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/lib/freeglutd.dll ${CMAKE_BINARY_DIR}/Debug/
+                   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/lib/glew32d.dll ${CMAKE_BINARY_DIR}/Debug/)
+				   
+add_executable(ssb_array src/ssb_array.cpp)
+target_link_libraries(ssb_array glew32d glew32sd)
+add_custom_command(TARGET ssb_array 
+                   POST_BUILD 
+                   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/lib/freeglutd.dll ${CMAKE_BINARY_DIR}/Debug/
+                   COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/lib/glew32d.dll ${CMAKE_BINARY_DIR}/Debug/)
