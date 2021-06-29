@@ -19,6 +19,7 @@ using std::shared_ptr;
 
 GLuint vao;
 GLuint glProg_0;
+GLuint vao_0[1];
 
 bool exist_opengl32() { return _access("opengl32.dll", 0) != -1; }
 
@@ -189,7 +190,6 @@ void draw(){
 	GLuint buf_0[1];
 	glGenBuffers(1, buf_0);
 
-	GLuint vao_0[1];
 	glGenVertexArrays(1, vao_0);
 	glBindVertexArray(vao_0[0]);
 	glBindBuffer(GL_ARRAY_BUFFER, buf_0[0]);
@@ -221,16 +221,15 @@ void draw(){
 	glBindVertexArray(vao_0[0]);
 	glDrawArrays(GL_POINTS, 0, 4);
   glutSwapBuffers();
-  glDrawArrays(GL_POINTS, 0, 4);
-  glutSwapBuffers();
-	exit(0);
+	//exit(0);
 }
 
 void render() {
-  static const GLfloat green[] = {0.0f, 0.25f, 0.0f, 1.0f};
-  glClearBufferfv(GL_COLOR, 0, green);
-
+  glClearColor(0, 0, 0, 1);
+  glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+  //glClear(GL_DEPTH_BUFFER_BIT);
   glUseProgram(glProg_0);
+  glBindVertexArray(vao_0[0]);
   glDrawArrays(GL_POINTS, 0, 4);
   glutSwapBuffers();
 }
@@ -282,6 +281,9 @@ int main(int argc, char *argv[]) {
 
   draw();
   glutDisplayFunc(render);
+  glutReshapeFunc(reshape);
+  glutKeyboardFunc(keyboard);
+
   glutMainLoop();
 
   return 0;

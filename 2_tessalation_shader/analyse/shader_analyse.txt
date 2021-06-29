@@ -7,7 +7,7 @@ tcs:
 4、tes执行的次数？
 
 一个图元就是一个patch，例如，原本整个draw只绘制一个三角形，那么 glDraw(GL_PATCH) 就只绘制了一个patch；如果绘制了两个三角形，那么 glDraw(GL_PATCH)就绘制了2个patch;
-TCS::gl_InvocationID的范围在[0:patch_vertex_num)，因此，如果只绘制一个patch，tcs中就只有一条lane，每条lane处理的顶点是patch对应的图元的顶点，注意，在vs中这些顶点是每个顶点一条lane，
+TCS::gl_InvocationID的范围在[0:patch_vertex_num)，但是，每条lane处理的顶点是patch对应的图元的顶点，注意，在vs中这些顶点是每个顶点一条lane，
 在tcs中每个patch的顶点集中到一条lane。由并行变串行。这也是为什么tcs中需要添加一个loop。
 
 
