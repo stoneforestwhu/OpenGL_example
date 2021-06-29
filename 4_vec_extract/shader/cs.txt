@@ -12,6 +12,6 @@ layout(binding = 1, std430) buffer TestOutput1 {
 
 void main()
 {
-   output_buffer.b.x = input_buffer.a.x;
-   output_buffer.b.z = input_buffer.a.z;
+   output_buffer.b[0] = input_buffer.a[0];
+   output_buffer.b[2] = input_buffer.a[2];
 }

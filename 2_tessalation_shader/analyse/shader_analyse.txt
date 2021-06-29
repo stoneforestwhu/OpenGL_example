@@ -5,3 +5,10 @@ tcs:
 2、gl_TessLevelInner 和 gl_TessLevelOuter 的值产生的作用？
 3、tcs的out和tes的in 声明没有变量名字。tcs的gl_out和tes的gl_in的关系？
 4、tes执行的次数？
+
+一个图元就是一个patch，例如，原本整个draw只绘制一个三角形，那么 glDraw(GL_PATCH) 就只绘制了一个patch；如果绘制了两个三角形，那么 glDraw(GL_PATCH)就绘制了2个patch;
+TCS::gl_InvocationID的范围在[0:patch_vertex_num)，因此，如果只绘制一个patch，tcs中就只有一条lane，每条lane处理的顶点是patch对应的图元的顶点，注意，在vs中这些顶点是每个顶点一条lane，
+在tcs中每个patch的顶点集中到一条lane。由并行变串行。这也是为什么tcs中需要添加一个loop。
+
+
+在tes中，TES::gl_in 这个数组中包含的数量是 patch_num，那如何区分不同的patch中gl_in的数据？

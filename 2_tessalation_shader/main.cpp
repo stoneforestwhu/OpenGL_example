@@ -77,6 +77,14 @@ void startup() {
   glBindVertexArray(vao);
 
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  static const GLfloat green[] = {0.0f, 0.25f, 0.0f, 1.0f};
+  glClearBufferfv(GL_COLOR, 0, green);
+
+  glUseProgram(program);
+  glDrawArrays(GL_PATCHES, 0, 3);
+
+  glutSwapBuffers();
+  //exit(0);
 }
 
 void render() {

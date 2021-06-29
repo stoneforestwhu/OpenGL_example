@@ -102,8 +102,8 @@ void compute() {
   //  TestOutput:g_output[4]
   glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, buffer_0[1]);
   //void *buf1_ptr = readBufferFile("data/bufD_1.bin", 64).;
-  int buf1_ptr[4] = {0, 0, 0, 0};
-  glBufferData(GL_SHADER_STORAGE_BUFFER, 16, buf1_ptr, GL_DYNAMIC_COPY);
+  int buf1_ptr[8] = {0, 0, 0, 0};
+  glBufferData(GL_SHADER_STORAGE_BUFFER, 32, buf1_ptr, GL_DYNAMIC_COPY);
 
   glUseProgram(program);
   
