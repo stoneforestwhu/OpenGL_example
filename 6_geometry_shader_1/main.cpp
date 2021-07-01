@@ -227,9 +227,9 @@ void draw(){
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 	glUseProgram(glProg_0);
 	glBindVertexArray(vao_0[0]);
-	glDrawArrays(GL_POINTS, 0, 4);
+  glDrawArrays(GL_POINTS, 0, 4);
   glutSwapBuffers();
-	//exit(0);
+	exit(0);
 }
 
 void render() {

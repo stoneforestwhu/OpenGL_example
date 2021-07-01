@@ -1,0 +1,38 @@
+#version 450 core
+
+layout(local_size_x = 4, local_size_y = 1, local_size_z = 1) in;
+
+layout(binding = 0, std430) buffer TestInput1 {
+  int a[4];  // ivec4(0, 1, -1, 2)
+  int b[4];  // ivec4(0, 1, 1, 1)
+  int c[4];  // ivec4(0,-1, 1, 0)
+  int counter;
+} input_buffer;
+layout(binding = 1, std430) buffer TestOutput1 {
+  ivec4 resVal[4];
+} output_buffer;
+
+uniform ivec4 iVal = ivec4(2, 3, 4, 5);
+
+void main() {
+  if(input_buffer.a[gl_GlobalInvocationID.x] == 0){
+     output_buffer.resVal[gl_GlobalInvocationID.x] = ivec4(0, 0, 0, 0);
+	 return;
+  }else{
+    if(input_buffer.b[gl_GlobalInvocationID.x] == 1){
+	  if(input_buffer.c[gl_GlobalInvocationID.x] < 0){
+	    output_buffer.resVal[gl_GlobalInvocationID.x] = ivec4(1, 2, 3, 4);
+	    for(int i = 0; i < input_buffer.counter; ++i){
+		  output_buffer.resVal[gl_GlobalInvocationID.x] += iVal;
+		}
+	    return;
+	  }
+	  else{
+	    output_buffer.resVal[gl_GlobalInvocationID.x] = iVal + ivec4(4, 5, 6, 7);
+	    return;
+	  }
+    }else{
+	  return;
+	}
+  }
+}

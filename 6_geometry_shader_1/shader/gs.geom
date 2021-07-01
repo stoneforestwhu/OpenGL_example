@@ -18,9 +18,9 @@ uniform vec4 offset_val[5] = vec4[](
 
 void main(){
   //int first_val = gs_in[0].color.x;
-  if(gs_in[0].color.x == 0.0f){   //  square
+  if(gs_in[0].color.x == 0.0f){   //  square, the primitive type is triangle strip, so 5 points is need to draw a square.
 	fColor = gs_in[0].color;
-    gl_Position = gl_in[0].gl_Position + vec4(-0.2, -0.2, 0.0, 0.0);
+    gl_Position = gl_in[0].gl_Position + vec4(0.0, -0.2, 0.0, 0.0);
     EmitVertex();
 	fColor = gs_in[0].color;
     gl_Position = gl_in[0].gl_Position + vec4(0.2, -0.2, 0.0, 0.0);
@@ -29,8 +29,11 @@ void main(){
     gl_Position = gl_in[0].gl_Position + vec4(0.2, 0.2, 0.0, 0.0);
     EmitVertex();
 	fColor = gs_in[0].color;
-    gl_Position = gl_in[0].gl_Position + vec4(-0.2, 0.2, 0.0, 0.0);
-    EmitVertex();	
+    gl_Position = gl_in[0].gl_Position + vec4(0.0, 0.2, 0.0, 0.0);
+    EmitVertex();
+	fColor = gs_in[0].color;
+    gl_Position = gl_in[0].gl_Position + vec4(0.0, -0.2, 0.0, 0.0);
+    EmitVertex();
     return;
   }else{
     if(gs_in[0].color.y == 1.0f){
