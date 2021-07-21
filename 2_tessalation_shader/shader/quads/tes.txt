@@ -1,0 +1,10 @@
+#version 410 core                                                      
+layout (quads, equal_spacing, cw) in;                              
+
+void main(void){                                                                      
+    float u = gl_TessCoord.x;
+	float v = gl_TessCoord.y;
+	float mu = 1.0 - u;
+	float mv = 1.0 - v;
+	gl_Position = mu*mv*gl_in[0].gl_Position + u*mv*gl_in[1].gl_Position + u*v*gl_in[2].gl_Position + mu*v*gl_in[3].gl_Position;
+}                                                                      
